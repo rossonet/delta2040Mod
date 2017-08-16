@@ -4626,17 +4626,18 @@ void gcode_G28_ros() {
  *
  *
  */
+#define MAX(a,b) (((a)>(b))?(a):(b))
 
 void gcode_G667() {
     	feedrate = homing_feedrate[Z_AXIS] / 6;
 
 	float centroX = -65;
-	float centroY = 5;
+	float centroY = 11;
 	float torreXX = -109;
-	float torreXY = -20;
-	float torreYX = -10;
-	float torreYY = -20;
-	float torreZX = -65;
+	float torreXY = -12;
+	float torreYX = 50;
+	float torreYY = -12;
+	float torreZX = -35;
 	float torreZY = 80;
 
 	float baseRilevamentiZ = 130.0;
@@ -4809,6 +4810,9 @@ void gcode_G667() {
 		
 	}
 	SERIAL_ECHOLNPGM("Fine rilevamenti G667 (by Rossonet)");
+	float piattoDelta = MAX(MAX(endstop_adj[X_AXIS],endstop_adj[Y_AXIS]),endstop_adj[Z_AXIS]);
+        add_homeing[2]=piattoDelta;
+
 	gcode_G28_ros();
 }
 
